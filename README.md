@@ -2,6 +2,11 @@
 
 Laravel GeoJson Myanmar
 
+## Start in php server
+```
+sudo php -S localhost:8080 ./prototype-test/townships.html
+```
+
 ## API
 ### Country
 ```
