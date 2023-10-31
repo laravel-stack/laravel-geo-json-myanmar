@@ -1,0 +1,42 @@
+<html>
+<head>
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+   crossorigin=""></script>
+   
+   <style>
+    #mmGeoJsonMap {
+      width:820;
+      height:720px;
+      margin-left:350px;
+      padding:20px;	   
+    }
+  </style>
+</head>
+<body>
+  <div id="mmGeoJsonMap"></div>
+  <script>
+    async function buildMap(url) {
+      let response = await fetch(url);
+      const json = await response.json();
+      const geoJson = json;
+      var mapStyle = {
+        fillColor:"#fff",
+        color:"#000",
+        weight:'1',
+        fillOpacity:1
+      };
+      var mapCenter = [21.23750038304331, 95.80412357008937];
+      var zoom = 5;
+      var basicMap = L.map('mmGeoJsonMap').setView(mapCenter,zoom);
+      var jsonLayer = L.geoJSON(geoJson,{style:mapStyle}).addTo(basicMap);
+    }
+    var file = 'country';
+    var url = 'https://raw.githubusercontent.com/laravel-stack/laravel-geo-json-myanmar/main/dist/geojson/'+file+'.geojson';
+    buildMap(url);
+  </script>
+</body>
+</html>
