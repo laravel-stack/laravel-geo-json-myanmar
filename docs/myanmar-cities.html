@@ -20,19 +20,24 @@
   <div id="mmGeoJsonMap"></div>
   <script>
     async function buildMap(url) {
-      let response = await fetch(url);
-      const json = await response.json();
-      const geoJson = json;
-      var mapStyle = {
-        fillColor:"#fff",
-        color:"#000",
-        weight:'1',
-        fillOpacity:1
-      };
-      var mapCenter = [21.23750038304331, 95.80412357008937];
-      var zoom = 5;
-      var basicMap = L.map('mmGeoJsonMap').setView(mapCenter,zoom);
-      var jsonLayer = L.geoJSON(geoJson,{style:mapStyle}).addTo(basicMap);
+        let response = await fetch(url);
+        const geoJson = await response.json();
+        var mapStyle = {
+          fillColor:"#fff",
+          color:"#000",
+          weight:'1',
+          fillOpacity: 0.75
+        };
+        var mapCenter = [21.23750038304331, 95.80412357008937];
+        var mapZoom = 5;
+        var basicMap = new L.Map('mmGeoJsonMap', {
+          layers: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+          center: L.latLng(mapCenter),
+          zoom: mapZoom,
+          minZoom: 2,
+          maxZoom: 15
+        });
+        var jsonLayer = L.geoJSON(geoJson,{style:mapStyle}).addTo(basicMap);
     }
     var url = 'https://raw.githubusercontent.com/laravel-stack/laravel-geo-json-myanmar/main/dist/json/coordinate-cities.json';
     buildMap(url);
